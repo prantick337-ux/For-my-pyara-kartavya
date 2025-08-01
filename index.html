@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>For My Kartavya</title>
+  <style>
+    * {
+      margin: 0; padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background-color: #000;
+      color: white;
+      font-family: 'Arial', sans-serif;
+      overflow: hidden;
+    }
+    .slide {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    .slide.active {
+      opacity: 1;
+      z-index: 1;
+    }
+    img, video {
+      max-width: 90vw;
+      max-height: 80vh;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(255, 105, 180, 0.4);
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 25px;
+      font-size: 18px;
+      background: hotpink;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: deeppink;
+    }
+    #musicBtn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 999;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 🔈 Background Music Control -->
+  <audio id="bgmusic" loop>
+    <source src="cupid.mp3" type="audio/mpeg" />
+  </audio>
+  <button id="musicBtn" onclick="toggleMusic()">Play Background Music</button>
+
+  <!-- 🔈 Voice Note (Slide 3) -->
+  <audio id="voicenote">
+    <source src="i love you.mp3" type="audio/mpeg" />
+  </audio>
+
+  <!-- 🖼 Slide 1 -->
+  <div class="slide active" id="slide1">
+    <img src="20250801_142633.jpg" alt="Slide 1 Image" />
+    <button onclick="nextSlide()">Next</button>
+  </div>
+
+  <!-- 📹 Slide 2 -->
+  <div class="slide" id="slide2">
+    <video controls autoplay muted playsinline>
+      <source src="Pink and Red Classic Illustrative Girlfriend's Day Promo Poster_20250801_134653_0001.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+    <button onclick="nextSlide()">Next</button>
+  </div>
+
+  <!-- 🖼🔊 Slide 3 -->
+  <div class="slide" id="slide3">
+    <img src="20250801_143744.jpg" alt="Slide 3 Image" />
+    <button onclick="playVoiceNote()">Play Voice Note</button>
+  </div>
+
+  <script>
+    let current = 1;
+    const bgMusic = document.getElementById('bgmusic');
+    const voiceNote = document.getElementById('voicenote');
+    const musicBtn = document.getElementById('musicBtn');
+
+    function nextSlide() {
+      document.getElementById(`slide${current}`).classList.remove('active');
+      current++;
+      const next = document.getElementById(`slide${current}`);
+      if (next) {
+        next.classList.add('active');
+      }
+    }
+
+    function playVoiceNote() {
+      voiceNote.play();
+    }
+
+    function toggleMusic() {
+      if (bgMusic.paused) {
+        bgMusic.play();
+        musicBtn.textContent = 'Pause Background Music';
+      } else {
+        bgMusic.pause();
+        musicBtn.textContent = 'Play Background Music';
+      }
+    }
+  </script>
+
+</body>
+</html>
